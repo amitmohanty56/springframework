@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	<context:component-scan base-package="com.springjdbc.*"></context:component-scan>
+	<!-- <context:component-scan base-package="com.loginapp.model"></context:component-scan>
+	<context:component-scan base-package="com.loginapp.service"></context:component-scan> -->
+	
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+		<value>database.properties</value>
+		</property>
+		</bean>
+		
+	<bean id="driverManagerDataSourceObject" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value= "${driverclassname}"></property>
+	<property name="url" value= "${url}"></property>
+	<property name="username" value= "${username}"></property>
+	<property name="password" value= "${password}"></property>
+	</bean>
+	
+	<bean id="jdbcTemplateObj" class="org.springframework.jdbc.core.JdbcTemplate" >
+    <property name="dataSource" ref="driverManagerDataSourceObject"></property>
+	</bean>
+	
+	<bean id="employeeDao" class="com.springjdbc.dao.EmployeeDao">
+	<property name="jdbcTemplate" ref="jdbcTemplateObj"></property>
+	</bean>
+	
+	<bean id="viewRosolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="prefix">
+	<value>/WEB-INF/jsp/</value>
+	</property>
+	
+	<property name="suffix">
+	<value>.jsp</value>
+	</property>
+	
+	</bean>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- DriverManagerDataSource Pre defined class-->
+	<!-- 
+	<bean id = "drivermanagerdatasourceObj" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value= "com.mysql.jdbc.Driver"></property>
+	<property name="url" value= "jdbc:mysql://localhost:3306/sys"></property>
+	<property name="username" value= "root"></property>
+	<property name="password" value= "Connect!23"></property>
+	</bean> -->
+	
+	<!-- JDBC Template DataSource Pre defined class-->
+<!-- 	<bean id = "jdbctempalateObj" class="org.springframework.jdbc.core.JdbcTemplate">
+	<property name="dataSource" ref = "drivermanagerdatasourceObj"></property>
+	</bean> -->
+	
+	<!-- Employee DAO object -->
+	<!-- <bean id = "employeeDao" class = "namedParameterJdbcDaoSupportEx.EmployeeDAO">
+	<property name="jdbcTemplate" ref = "jdbctempalateObj"></property>
+	<property name="dataSource" ref = "drivermanagerdatasourceObj"></property>
+	</bean> -->
+	
+	
+	
+	
+	</beans>
