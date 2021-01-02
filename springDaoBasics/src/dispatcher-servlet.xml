@@ -28,7 +28,11 @@
     <property name="dataSource" ref="driverManagerDataSourceObject"></property>
 	</bean>
 	
-	<bean id="employeeDao" class="com.springjdbc.dao.EmployeeDao">
+	<bean id="employeeDao" class="com.springjdbc.dao.EmployeeDao_NonSelectOperation">
+	<property name="jdbcTemplate" ref="jdbcTemplateObj"></property>
+	</bean>
+	
+	<bean id="employeeDaoSelectOpertion" class="com.springjdbc.dao.EmployeeDao_SelectOperation">
 	<property name="jdbcTemplate" ref="jdbcTemplateObj"></property>
 	</bean>
 	
